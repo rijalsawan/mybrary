@@ -1,0 +1,55 @@
+{
+    "_id": "61e5aaab8a5a6a599f4b68e1",
+    "id": "tt15398776",
+    "primaryImage": {
+        "id": "rm2670601217",
+        "width": 2331,
+        "height": 3454,
+        "url": "https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg",
+        "caption": {
+            "plainText": "Cillian Murphy in Oppenheimer (2023)",
+            "__typename": "Markdown"
+        },
+        "__typename": "Image"
+    },
+    "titleType": {
+        "displayableProperty": {
+            "value": {
+                "plainText": "",
+                "__typename": "Markdown"
+            },
+            "__typename": "DisplayableTitleTypeProperty"
+        },
+        "text": "Movie",
+        "id": "movie",
+        "isSeries": false,
+        "isEpisode": false,
+        "categories": [
+            {
+                "value": "movie",
+                "__typename": "TitleTypeCategory"
+            }
+        ],
+        "canHaveEpisodes": false,
+        "__typename": "TitleType"
+    },
+    "titleText": {
+        "text": "Oppenheimer",
+        "__typename": "TitleText"
+    },
+    "originalTitleText": {
+        "text": "Oppenheimer",
+        "__typename": "TitleText"
+    },
+    "releaseYear": {
+        "year": 2023,
+        "endYear": null,
+        "__typename": "YearRange"
+    },
+    "releaseDate": {
+        "day": 21,
+        "month": 7,
+        "year": 2023,
+        "__typename": "ReleaseDate"
+    }
+}
