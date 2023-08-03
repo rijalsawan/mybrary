@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { BiSolidBookmarkHeart } from "react-icons/bi";
 import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify"
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const movies = () => {
@@ -15,8 +15,7 @@ const movies = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url =
-      `https://moviesdatabase.p.rapidapi.com/titles/search/title/${form.title}`;
+    const url = `https://moviesdatabase.p.rapidapi.com/titles/search/title/${form.title}`;
     const options = {
       method: "GET",
       headers: {
@@ -28,7 +27,7 @@ const movies = () => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      if (result.results.length ===0) {
+      if (result.results.length === 0) {
         toast.error("No results found. Try again!");
       }
       setMoviesData(result.results);
@@ -37,21 +36,19 @@ const movies = () => {
     }
   };
 
-  console.log(moviesData);
-
   return (
     <>
-    <ToastContainer
-      position="top-center"
-      autoClose={1000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss={false}
-      draggable
-      pauseOnHover
-    />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+      />
       <form action="">
         <h1 className="text-center text-xl my-10 text-white">
           Search The Title Of Any Movie You Like
@@ -79,37 +76,72 @@ const movies = () => {
       <section className="text-white body-font my-10">
         <div className="container px-5 mx-auto">
           <div className="flex flex-wrap -m-4">
-            {moviesData.length ===0 ? <><h1 className="mx-auto text-xl my-10">Search to Get results below:</h1></> : moviesData.map((item) => {
-              return (
-                <>
-                  <div
-                    key={item.id}
-                    className="lg:w-1/6 md:w-1/2 m-4 p-2 w-full hover:bg-blue-500 hover:scale-110 cursor-pointer transition-all duration-100 rounded-xl ease-in-out"
-                  >
-                    <span className="block relative rounded overflow-hidden">
-                      <BiSolidBookmarkHeart className="text-red-500 bg-white rounded-full text-3xl hover:text-red-700"/>
-                      <img
-                        height={200}
-                        width={200}
-                        alt="ecommerce"
-                        className="lg:object-cover w-2/4 m-auto h-40  lg:object-center lg:w-[40] lg:h-[40] lg:block"
-                        src={(item.primaryImage === null) ? "https://via.placeholder.com/150" : item.primaryImage.url}
-                      />
-                    </span>
-                    <div className="mt-4">
-                      <h3 className=" text-lg text-blue-300 tracking-widest mb-1">
-                        {item.titleText.text} <span className="text-sm">({item.titleType.text})</span>
-                      </h3>
-                      <p className="mt-1">{item.releaseYear.year}</p>
+            {moviesData.length === 0 ? (
+              <>
+                <h1 className="mx-auto text-xl my-10">
+                  Search to Get results below:
+                </h1>
+              </>
+            ) : (
+              moviesData.map((item) => {
+                return (
+                  <>
+                    <div
+                      key={item.id}
+                      className="lg:w-1/6 md:w-1/2 m-4 p-2 w-full hover:bg-blue-500 hover:scale-110 cursor-pointer transition-all duration-100 rounded-xl ease-in-out"
+                    >
+                      <span className="block relative rounded overflow-hidden">
+                        <BiSolidBookmarkHeart
+                          onClick={async () => {
+                            let data = {
+                              id: item.id,
+                            };
+                            let a = fetch("/api/addMovie", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify(data),
+                            })
+                            let b = await a;
+                            if (b.status === 200) {
+                              toast.success("Added to Favourites");
+                            }
+                            if (b.status === 400) {
+                              toast.error("Already added to Favourites");
+                            }
+                          }}
+                          className="text-red-500 bg-white rounded-full text-3xl hover:text-red-700"
+                        />
+                        <img
+                          height={200}
+                          width={200}
+                          alt="ecommerce"
+                          className="lg:object-cover w-2/4 m-auto h-40  lg:object-center lg:w-[40] lg:h-[40] lg:block"
+                          src={
+                            item.primaryImage === null
+                              ? "https://via.placeholder.com/150"
+                              : item.primaryImage.url
+                          }
+                        />
+                      </span>
+                      <div className="mt-4">
+                        <h3 className=" text-lg text-blue-300 tracking-widest mb-1">
+                          {item.titleText.text}{" "}
+                          <span className="text-sm">
+                            ({item.titleType.text})
+                          </span>
+                        </h3>
+                        <p className="mt-1">{item.releaseYear.year}</p>
+                      </div>
                     </div>
-                  </div>
-                </>
-              );
-            })}
+                  </>
+                );
+              })
+            )}
           </div>
         </div>
       </section>
-      
     </>
   );
 };

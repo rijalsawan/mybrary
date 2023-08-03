@@ -1,17 +1,17 @@
-import Book from '../../models/Book';
+import Movie from '../../models/Movie';
 import connectDb from '../../middleware/mongoose';
 
 const handler = async (req, res) => {
   if (req.method == 'POST'){
       try{
-        const book = new Book({
+        const movie = new Movie({
           id: req.body.id,
         })
-        await book.save();
-        res.status(201).json({success: true})
+        await movie.save();
+        res.status(200).json({success: true})
       }
       catch(err){
-        console.log(err);
+        res.status(400).json({success: false})
       }
     }
   }

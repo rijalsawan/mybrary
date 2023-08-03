@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { BiSolidBookmarkHeart } from "react-icons/bi";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SearchBooks() {
   const [form, setForm] = useState({});
@@ -24,6 +27,9 @@ export default function SearchBooks() {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
+      if (result.length === 0) {
+        toast.error("No results found");
+      }
       setBooksData(result);
     } catch (error) {
       console.error(error);
@@ -33,6 +39,7 @@ export default function SearchBooks() {
   };
   return (
     <>
+    <ToastContainer/>
       <form action="">
         
         <div className="flex justify-center space-x-3">
@@ -66,7 +73,27 @@ export default function SearchBooks() {
                     className="lg:w-1/6 md:w-1/2 m-4 p-2 w-full hover:bg-blue-500 hover:scale-110 cursor-pointer transition-all duration-100 rounded-xl ease-in-out"
                   >
                     <span className="block relative rounded overflow-hidden">
-                    <BiSolidBookmarkHeart className="text-red-500 bg-white rounded-full text-3xl hover:text-red-700"/>
+                    <BiSolidBookmarkHeart onClick={()=>{
+                      let data = {
+                        id: item.book_id,
+                      }
+                      let a = fetch('/api/addBook', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                        toast.success("Book added to your list")
+                        console.log('Success:', data);
+                      })
+                      .catch((error) => {
+                        toast.error("Book already exists in your list")
+                        console.error('Error:', error);
+                      })
+                    }} className="text-red-500 bg-white rounded-full text-3xl hover:text-red-700"/>
 
                       <img
                         height={200}
