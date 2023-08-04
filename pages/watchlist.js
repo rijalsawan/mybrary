@@ -1,8 +1,31 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Watchlist = () => {
   const [id, setId] = useState([]);
-  const movies = [];
+  const [moviesData, setMoviesData] = useState([]);
+
+  useEffect(() => {
+    getId();
+  }, []);
+
+  useEffect(() => {
+    if (id.length > 0) {
+      pushMovies();
+    }
+  }, [id]);
+
+  async function pushMovies() {
+    const movies = [];
+    for (const _id of id) {
+      try {
+        const movie = await getMovies(_id.id);
+        movies.push(movie.results);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    }
+    setMoviesData(movies.flat()); // Flatten the array of arrays
+  }
 
   const getId = async () => {
     try {
@@ -10,7 +33,7 @@ const Watchlist = () => {
       const data = await response.json();
       setId(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching IDs:", error);
     }
   };
 
@@ -23,27 +46,19 @@ const Watchlist = () => {
         "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com",
       },
     };
-  
+
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      movies.push(result);
+      return result;
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching movie:", error);
     }
   };
 
-  const key = () =>{
-    return Math.random(1, 100000)
-  }
-
-  useEffect(() => {
-    getId();
-    id.forEach(async (item) => {
-      await getMovies(item.id);
-    });
-  }, []);
-
+  const key = () => {
+    return Math.random(1, 100000);
+  };
 
   return (
     <>
@@ -51,7 +66,7 @@ const Watchlist = () => {
         <h1 className="text-center text-2xl mb-20">Watchlist</h1>
         <div className="container px-5 mx-auto">
           <div className="flex flex-wrap -m-4">
-            {movies.map((item) => (
+            {moviesData.map((item) => (
               <div
                 key={key()}
                 className="lg:w-1/6 md:w-1/2 m-4 p-2 w-full hover:bg-blue-500 hover:scale-110 cursor-pointer transition-all duration-100 rounded-xl ease-in-out"
@@ -60,7 +75,7 @@ const Watchlist = () => {
                   <img
                     alt="ecommerce"
                     className="lg:object-cover w-2/4 m-auto h-40  lg:object-center lg:w-[40] lg:h-[40] lg:block"
-                    src={item.primaryImage.url}
+                    src={item.primaryImage.url ?? ""}
                   />
                 </span>
                 <div className="mt-4">
