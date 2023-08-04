@@ -118,21 +118,17 @@ const movies = () => {
                           width={200}
                           alt="ecommerce"
                           className="lg:object-cover w-2/4 m-auto h-40  lg:object-center lg:w-[40] lg:h-[40] lg:block"
-                          src={
-                            item.primaryImage === null
-                              ? "https://via.placeholder.com/150"
-                              : item.primaryImage.url
-                          }
+                          src={item.primaryImage == null ? "https://via.placeholder.com/150" : item.primaryImage.url}
                         />
                       </span>
                       <div className="mt-4">
                         <h3 className=" text-lg text-blue-300 tracking-widest mb-1">
-                          {item.titleText.text}{" "}
+                          {item.titleText.text}
                           <span className="text-sm">
                             ({item.titleType.text})
                           </span>
                         </h3>
-                        <p className="mt-1">{item.releaseYear.year}</p>
+                        <p className="mt-1">{item.releaseYear == null ? "" : item.releaseYear.year}</p>
                       </div>
                     </div>
                   </>
