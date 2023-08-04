@@ -3,20 +3,28 @@ import React, { useEffect, useState } from "react";
 const Watchlist = () => {
   const [id, setId] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
-  const movies = [];
 
   useEffect(() => {
     getId();
-    pushMovies();
   }, []);
 
-  async function pushMovies() {
-    for (const _id of id) {
-      const movie = await getMovies(_id.id);
-      movies.push(movie.results);
+  useEffect(() => {
+    if (id.length > 0) {
+      pushMovies();
     }
-    setMoviesData(movies);
-    console.log(moviesData);
+  }, [id]);
+
+  async function pushMovies() {
+    const movies = [];
+    for (const _id of id) {
+      try {
+        const movie = await getMovies(_id.id);
+        movies.push(movie.results);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    }
+    setMoviesData(movies.flat()); // Flatten the array of arrays
   }
 
   const getId = async () => {
@@ -25,7 +33,7 @@ const Watchlist = () => {
       const data = await response.json();
       setId(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching IDs:", error);
     }
   };
 
@@ -44,7 +52,7 @@ const Watchlist = () => {
       const result = await response.json();
       return result;
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching movie:", error);
     }
   };
 
