@@ -28,7 +28,7 @@ const Navbar = () => {
               <div className="hover:scale-110 transition-transform duration-150 hover:bg-blue-300 hover:bg-opacity-20 hover:rounded lg:px-[4px] lg:py-[5px] lg:pr-4"><Link legacyBehavior href={"/MyBooks"}><a className=" hover:text-white text-xl"><FaBook className="bookIcon mx-3 mb-1"/>My Books</a></Link></div>
               </li>
               <li>
-              <div className="hover:scale-110 transition-transform duration-150 hover:bg-blue-300 hover:bg-opacity-20 hover:rounded lg:px-[4px] lg:py-[5px] lg:pr-4"><Link legacyBehavior href={"/MyBooks"}><a className=" hover:text-white text-xl"><BsFillBookmarkCheckFill className="bookIcon mx-3 mb-1"/>Watchlist </a></Link></div>
+              <div className="hover:scale-110 transition-transform duration-150 hover:bg-blue-300 hover:bg-opacity-20 hover:rounded lg:px-[4px] lg:py-[5px] lg:pr-4"><Link legacyBehavior href={"/watchlist"}><a className=" hover:text-white text-xl"><BsFillBookmarkCheckFill className="bookIcon mx-3 mb-1"/>Watchlist </a></Link></div>
               </li>
               <li>
              <div className="hover:scale-110 transition-transform duration-150 hover:bg-blue-300 hover:bg-opacity-20 hover:rounded lg:px-[4px] lg:py-[5px] lg:pr-4"> <Link legacyBehavior href={"/feedback"}><a className=" hover:text-white text-xl"><RiFeedbackFill className="feedbackIcon text-2xl mx-3 mb-1"/>Feedback</a></Link></div>
