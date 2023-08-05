@@ -54,8 +54,8 @@ const Signup = () => {
   return (
     <>
     <ToastContainer/>
-      <div className="max-w-[280px] py-10 mx-auto">
-        <div className="flex flex-col items-center mt-[10vh]">
+      <div className="max-w-[280px] py-5 mx-auto">
+        <div className="flex flex-col items-center mt-[10vh]  bg-blue-500 p-5 rounded-xl">
           <h1 className="text-3xl font-bold text-white mb-5">Sign up</h1>
           <form action="">
             <input
@@ -64,7 +64,7 @@ const Signup = () => {
               onChange={handleChange}
               name="name"
               id="name"
-              className="w-full px-6 py-3 mb-2 text-black  rounded-lg font-medium "
+              className="w-full px-6 py-3 mb-6 text-black  rounded-lg font-medium "
               placeholder="Name"
             />
             <input
@@ -73,7 +73,7 @@ const Signup = () => {
               onChange={handleChange}
               name="email"
               id="email"
-              className="w-full px-6 py-3 mb-2 text-black  rounded-lg font-medium "
+              className="w-full px-6 py-3 mb-6 text-black  rounded-lg font-medium "
               placeholder="Email"
             />
             <input
@@ -82,12 +82,12 @@ const Signup = () => {
               value={password}
               name="password"
               id="password"
-              className="w-full px-6 py-3 mb-2 text-black rounded-lg font-medium "
+              className="w-full px-6 py-3 mb-6 text-black rounded-lg font-medium "
               placeholder="Password"
             />
             <button
               onClick={handleSubmit}
-              className="bg-blue-500 hover:bg-blue-700 text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px]"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px]"
             >
               Register
             </button>
